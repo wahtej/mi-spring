@@ -37,14 +37,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //
 //		});
 		http.csrf().disable();
-		http.addFilterBefore(jwtFilter, BasicAuthenticationFilter.class);
-		http.authorizeRequests().antMatchers("/swagger-ui/**", "https://ml-hospital-mngmt.azurewebsites.net/**","/v3/api-docs/**","https://ml-hospital-scheduler.azurewebsites.net/").permitAll();
-		http.authorizeRequests().antMatchers("/adminlogin","/doctorlogin","/patientlogin","/patientRegister","/api/csrf","/sample").permitAll()
-				.antMatchers("/patientslist","/doctorRegistration").hasAuthority("admin")
-                .antMatchers("/doctorslists").hasAnyAuthority("admin","patient")
-				.antMatchers("/updatePatient","/patientPasswordChange","/insertAppointment","/showStatus").hasAuthority("patient")
-				.antMatchers("/updateDoctor","/doctorPasswordChange","/acceptAppointments").hasAuthority("doctor")
-				.anyRequest().authenticated();
+		http.authorizeRequests().antMatchers("/swagger-ui/**", "https://ml-hospital-mngmt.azurewebsites.net/**", "/v3/api-docs/**", "https://ml-hospital-scheduler.azurewebsites.net/").permitAll()
+				.antMatchers("/adminlogin", "/doctorlogin", "/patientlogin", "/patientRegister", "/api/csrf", "/sample").permitAll()
+				.antMatchers("/patientslist", "/doctorRegistration", "/doctorslists").hasAuthority("admin")
+				.antMatchers("/j").hasAnyAuthority("admin", "patient")
+				.antMatchers("/updatePatient", "/patientPasswordChange", "/insertAppointment", "/showStatus").hasAuthority("patient")
+				.antMatchers("/updateDoctor", "/doctorPasswordChange", "/acceptAppointments").hasAuthority("doctor")
+				.anyRequest()
+				.authenticated()
+				.and()
+				.addFilterBefore(jwtFilter, BasicAuthenticationFilter.class);
 	}
 
 	private CsrfTokenRepository csrfTokenRepository() {

@@ -31,5 +31,5 @@ spring:
 jwt:
   secret: screatKey123
 #  for frontend domain
-#domain:
-  #name: *
+domain:
+  name: http://3.110.134.206:31501/
