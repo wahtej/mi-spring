@@ -68,8 +68,8 @@ public class AdminController {
 		}
 		return null;
 	}
-	@GetMapping("/sample")
+	@GetMapping("sample")
 	public String getSample(){
-		return "sample";
+		return "sandeep";
 	}
 }

@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable();
 		http.addFilterBefore(jwtFilter, BasicAuthenticationFilter.class);
 		http.authorizeRequests().antMatchers("/swagger-ui/**", "https://ml-hospital-mngmt.azurewebsites.net/**","/v3/api-docs/**","https://ml-hospital-scheduler.azurewebsites.net/").permitAll();
-		http.authorizeRequests().antMatchers("/adminlogin","/doctorlogin","/patientlogin","/patientRegister","/api/csrf","/sample").permitAll()
+		http.authorizeRequests().antMatchers("/adminlogin","/doctorlogin","/patientlogin","/patientRegister","/api/csrf").permitAll()
 				.antMatchers("/patientslist","/doctorRegistration").hasAuthority("admin")
                 .antMatchers("/doctorslists").hasAnyAuthority("admin","patient")
 				.antMatchers("/updatePatient","/patientPasswordChange","/insertAppointment","/showStatus").hasAuthority("patient")
