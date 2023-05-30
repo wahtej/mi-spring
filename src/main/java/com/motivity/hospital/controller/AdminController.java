@@ -70,6 +70,6 @@ public class AdminController {
 	}
 	@GetMapping("sample")
 	public String getSample(){
-		return "sandeep";
+		return "sample";
 	}
 }
