@@ -32,4 +32,4 @@ jwt:
   secret: screatKey123
 #  for frontend domain
 domain:
-  name: http://3.110.134.206:31501/
+  name: http://frontendservice.default.svc.cluster.local:31501/
