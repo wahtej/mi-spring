@@ -32,4 +32,4 @@ jwt:
   secret: screatKey123
 #  for frontend domain
 domain:
-  name: http://13.233.37.15:31501/
+  name: http://43.205.198.169:31501/
