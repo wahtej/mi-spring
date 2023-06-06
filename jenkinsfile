@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('cleanup workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('git -clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/wahtej/mi-spring.git'
+            }
+        }
+        stage('mvn build') {
+            steps {
+                sh "mvn clean install -DskipTests"
+            }
+        }
+        /*
+         stage('mvn test') {
+            steps {
+                sh "mvn test"
+            }
+        }
+        */
+    
+        stage('sonarqube analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv(credentialsId: 'sonarqube1') {
+                        sh "mvn sonar:sonar"
+                    }
+                }  
+            }
+        } 
+    
+        stage('docker build backend') {
+            steps {
+                script {
+                    sh "sudo docker build --no-cache -t wahtej/backend9:latest ."
+                }
+            }
+        }
+        stage('docker push') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'dockerhub1', variable: 'dockerhub1')]) {
+                        sh "sudo docker login -u wahtej -p ${dockerhub1}" 
+                    }
+                        sh "sudo docker push wahtej/backend9:latest"
+                        
+                        
+                }
+            }
+        }
+        
+        
+    }
+}
